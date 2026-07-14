@@ -27,6 +27,7 @@ const User = require("./models/user.js");
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const userRoutes = require("./routes/user.js");
+const wishlistRouter = require("./routes/wishlist");
 
 const dbUrl = process.env.ATLAS_URL;
 
@@ -109,6 +110,7 @@ app.use("/listings", listingRoutes);
 
 app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/users", userRoutes);
+app.use("/wishlist", wishlistRouter);
 
 
 

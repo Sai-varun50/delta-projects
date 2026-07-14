@@ -3,37 +3,7 @@
     
 
       <style>
-        #filters {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-        }
-
-        .filter {
-          text-align: center;
-          margin-right: 2rem;
-          margin-top: 2rem;
-          opacity: 0.7;
-        }
-
-        .filter:hover {
-          opacity: 1;
-          cursor: pointer;
-        }
-
-        .tax-info {
-          display: none;
-        }
-
-        .tax-toggle {
-          border: 1px solid black;
-          border-radius: 1rem;
-          height: 3.5rem;
-          padding: 1rem;
-          margin-left: 3rem;
-          display: flex;
-          align-items: center;
-        }
+        
       </style>
 
 
@@ -42,67 +12,71 @@
 
     <div id="filters">
       <div class="filter">
-       <div> <i class="fa-solid fa-fire"></i></div>
+       <div> <i>🔥</i></div>
        <p> Trending </p>
       </div>
 
       <div class="filter">
-       <div> <i class="fa-solid fa-bed"></i></div>
-       <p> Rooms </p>
+       <div> <i>🏔️</i></div>
+       <p> Mountains </p>
       </div>
 
       <!-- next -->
       <div class="filter">
-        <div> <i class="fa-solid fa-monument"></i></div>
-        <p> Iconic monuments </p>
+        <div> <i >🏕️</i></div>
+        <p> Camping</p>
       </div>
       
       <div class="filter">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p> Mountains </p>
+        <div><i >🏛️</i></div>
+        <p> Heritage </p>
       </div>
     
       
       <!-- next -->
       <div class="filter">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <div><i>🛏️</i></div>
+        <p> Rooms </p>
+      </div>
+      
+      <div class="filter">
+        <div> <i>🏊</i></div>
         <p> Pools </p>
       </div>
-      
+    
+
+    <!-- next -->
       <div class="filter">
-        <div> <i class="fa-solid fa-campground"></i></div>
-        <p> Camps </p>
+        <div> <i>🌊</i></div>
+        <p> Lakes </p>
+      </div>
+
+      <div class="filter">
+        <div> <i>🌲</i></div>
+        <p> Forest </p>
       </div>
     
 
     <!-- next -->
       <div class="filter">
-        <div> <i class="fa-solid fa-cow"></i></div>
-        <p> Farms </p>
+        <div> <i>🏜️</i></div>
+        <p> Desert </p>
       </div>
 
       <div class="filter">
-        <div> <i class="fa-solid fa-campground"></i></div>
-        <p> Camps </p>
-      </div>
-    
-
-    <!-- next -->
-      <div class="filter">
-        <div> <i class="fa-solid fa-cow"></i></div>
-        <p> Farms </p>
-      </div>
-
-      <div class="filter">
-        <div> <i class="fa-solid fa-campground"></i></div>
-        <p> Camps </p>
+        <div> <i>🚜</i></div>
+        <p> Farm </p>
       </div>
     
 
     <!-- next -->
       <div class="filter">
-        <div> <i class="fa-solid fa-cow"></i></div>
-        <p> Farms </p>
+        <div> <i>🏠</i></div>
+        <p> Cabins </p>
+      </div>
+      <div class="filter">
+        <div> <i>🏖️</i></div>
+        <p> Beach </p>
       </div>
     
     
@@ -123,7 +97,11 @@
 
 
         <div class="card  listing-card" style="width: 25rem; margin: 20px;">
-          
+          <form action="/wishlist/<%= listing._id %>" method="POST">
+        <button class="wishlist-btn">
+            🤍
+        </button>
+        </form>
           <img src="<%= listing.image.url %>" 
                class="card-img-top " 
                alt="listing_image"
