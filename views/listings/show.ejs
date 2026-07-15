@@ -26,6 +26,9 @@
         </div>
     </div>
 
+
+
+
     <!-- ✅ NEW ROW FOR BUTTONS -->
     <%  if (currentUser && currentUser._id.equals(listing.owner._id)) { %>
     <div class="row mt-3 btns">
@@ -40,8 +43,39 @@
             </form>
 
         </div>
+        
         <div class="col-6 offset-2 mb-3 listing-card" >
  <% } %>
+ <% if (currentUser && !currentUser._id.equals(listing.owner._id)) { %>
+
+<hr>
+
+<h4>Book this Stay</h4>
+
+<form action="/bookings/<%= listing._id %>" method="POST">
+
+    <div class="mb-3">
+        <label>Check-in</label>
+        <input type="date" name="checkIn" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Check-out</label>
+        <input type="date" name="checkOut" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Guests</label>
+        <input type="number" name="guests" class="form-control" min="1" value="1" required>
+    </div>
+
+    <button class="btn btn-success">
+        Book Now
+    </button>
+
+</form>
+
+<% } %>
  <% if(currentUser) { %>
             <hr>
             <h4>Leave a Review</h4>

@@ -18,12 +18,12 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Booking = require("./models/booking");
 
 
 
 
-
-
+const bookingRoutes = require("./routes/booking");
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const userRoutes = require("./routes/user.js");
@@ -95,6 +95,9 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.userWishlist = req.user ? req.user.wishlist : [];
 
+        res.locals.search = req.query.search || "";
+
+
     next();
 });
 
@@ -113,7 +116,7 @@ app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/users", userRoutes);
 app.use("/wishlist", wishlistRouter);
-
+app.use("/bookings", bookingRoutes);
 
 
 app.use((req, res, next) => {

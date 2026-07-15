@@ -1,0 +1,40 @@
+<% layout("listings/layouts/boilerplate.ejs") %>
+
+<h2 class="mt-4">My Bookings</h2>
+
+<% if (bookings.length === 0) { %>
+
+    <h4>No bookings yet.</h4>
+
+<% } else { %>
+
+   <% bookings.forEach(booking => { %>
+
+<div class="card mb-3">
+
+    <img src="<%= booking.listing.image.url %>" class="card-img-top">
+
+    <div class="card-body">
+
+        <h4><%= booking.listing.title %></h4>
+
+        <p>Check-in: <%= booking.checkIn.toLocaleDateString("en-IN") %></p>
+
+        <p>Check-out: <%= booking.checkOut.toLocaleDateString("en-IN") %></p>
+
+        <p>Guests: <%= booking.guests %></p>
+
+        <p><strong>₹<%= booking.totalPrice.toLocaleString("en-IN") %></strong></p>
+
+        <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">
+                Cancel Booking
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
+<% }) %>
+<% } %>
