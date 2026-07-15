@@ -28,6 +28,7 @@ const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/reviews.js");
 const userRoutes = require("./routes/user.js");
 const wishlistRouter = require("./routes/wishlist");
+const profileRouter = require("./routes/profile");
 
 const dbUrl = process.env.ATLAS_URL;
 
@@ -117,6 +118,7 @@ app.use("/listings/:id/reviews", reviewRoutes);
 app.use("/users", userRoutes);
 app.use("/wishlist", wishlistRouter);
 app.use("/bookings", bookingRoutes);
+app.use("/profile", profileRouter);
 
 
 app.use((req, res, next) => {
