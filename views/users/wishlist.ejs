@@ -7,7 +7,17 @@
     <% if(listings.length === 0){ %>
 
         <div class="alert alert-info">
-            Your wishlist is empty.
+           <div class="text-center py-5">
+    <h2>❤️ Your Wishlist is Empty</h2>
+
+    <p class="text-muted">
+        Save your favourite destinations and they'll appear here.
+    </p>
+
+    <a href="/listings" class="btn btn-dark">
+        Explore Listings
+    </a>
+</div>
         </div>
 
     <% } else { %>
@@ -40,7 +50,12 @@
                             >
                                 View Listing
                             </a>
-
+                            <br><br>
+                            <form action="/wishlist/<%= listing._id %>?_method=DELETE" method="POST">
+    <button class="btn btn-outline-danger btn-sm">
+        ❤️ Remove
+    </button>
+</form>
                         </div>
 
                     </div>

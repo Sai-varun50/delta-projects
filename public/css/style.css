@@ -166,3 +166,78 @@ body {
     font-size:1.5rem;
     cursor:pointer;
 }
+
+.listing-card{
+    position: relative;
+}
+
+.wishlist-btn{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+
+    border: none;
+    background: white;
+    border-radius: 50%;
+
+    width: 42px;
+    height: 42px;
+
+    font-size: 22px;
+    cursor: pointer;
+
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+}
+
+.wishlist-btn:hover{
+    transform: scale(1.1);
+    transition: .2s;
+}
+.active-filter {
+    opacity: 1 !important;
+    color: #fe424d;
+    border-bottom: 2px solid #fe424d;
+    font-weight: 600;
+}
+
+.filter {
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.filter:hover {
+    opacity: 1;
+}
+.filter {
+    text-align: center;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color: #555;
+}
+
+.filter:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.active-filter {
+    opacity: 1 !important;
+    color: #fe424d;
+    border-bottom: 2px solid #fe424d;
+    font-weight: 600;
+}
+
+.active-filter i {
+    color: #fe424d;
+}
+
+.listing-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+a{
+    text-decoration: none;
+}

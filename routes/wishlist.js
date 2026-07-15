@@ -11,14 +11,15 @@ router.get(
     wishlistController.showWishlist
 );
 
-
-
-
 router.post(
     "/:id",
     isLoggedIn,
     wishlistController.addToWishlist
 );
 
+router.delete(
+    "/:id",
+    isLoggedIn,
+     wishlistController.removeFromWishlist);
 
 module.exports = router;

@@ -349,4 +349,36 @@ const sampleListings = [
   },
 ];
 
+sampleListings.forEach((listing) => {
+  const title = listing.title.toLowerCase();
+
+  if (title.includes("beach")) {
+    listing.category = "Beach";
+  } else if (title.includes("mountain") || title.includes("ski")) {
+    listing.category = "Mountains";
+  } else if (
+    title.includes("cabin") ||
+    title.includes("camp") ||
+    title.includes("treehouse")
+  ) {
+    listing.category = "Camping";
+  } else if (title.includes("desert")) {
+    listing.category = "Desert";
+  } else if (title.includes("castle")) {
+    listing.category = "Castle";
+  } else if (
+    title.includes("forest") ||
+    title.includes("eco")
+  ) {
+    listing.category = "Forest";
+  } else if (
+    title.includes("farm") ||
+    title.includes("cottage")
+  ) {
+    listing.category = "Farm";
+  } else {
+    listing.category = "Iconic Cities";
+  }
+});
+
 module.exports = { data: sampleListings };

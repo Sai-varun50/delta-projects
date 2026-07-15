@@ -7,101 +7,123 @@
       </style>
 
 
+<div id="filters">
 
+  <a href="/listings" class="listing-link text-decoration-none">
+    <div class="filter <%= !category ? 'active-filter' : '' %>">
+      <div><i>🔥</i></div>
+      <p>All</p>
+    </div>
+  </a>
 
+<a href="/listings?search=<%= search || '' %>&category=Mountains" class="text-decoration-none">    <div class="filter <%= category === 'Mountains'  ? 'active-filter' : '' %>">
+      <div><i>🏔️</i></div>
+      <p>Mountains</p>
+    </div>
+  </a>
 
-    <div id="filters">
-      <div class="filter">
-       <div> <i>🔥</i></div>
-       <p> Trending </p>
-      </div>
+<a href="/listings?search=<%= search || '' %>&category=Camping" class="text-decoration-none">    <div class="filter <%= category === 'Camping' ? 'active-filter' : '' %>">
+      <div><i>🏕️</i></div>
+      <p>Camping</p>
+    </div>
+  </a>
 
-      <div class="filter">
-       <div> <i>🏔️</i></div>
-       <p> Mountains </p>
-      </div>
+<a href="/listings?search=<%= search || '' %>&category=Castle" class="text-decoration-none">    <div class="filter <%= category === 'Castle' ? 'active-filter' : '' %>">
+      <div><i>🏰</i></div>
+      <p>Castle</p>
+    </div>
+  </a>
 
-      <!-- next -->
-      <div class="filter">
-        <div> <i >🏕️</i></div>
-        <p> Camping</p>
-      </div>
-      
-      <div class="filter">
-        <div><i >🏛️</i></div>
-        <p> Heritage </p>
-      </div>
-    
-      
-      <!-- next -->
-      <div class="filter">
-        <div><i>🛏️</i></div>
-        <p> Rooms </p>
-      </div>
-      
-      <div class="filter">
-        <div> <i>🏊</i></div>
-        <p> Pools </p>
-      </div>
-    
+<a href="/listings?search=<%= search || '' %>&category=Beach" class="text-decoration-none">    <div class="filter <%= category === 'Beach' ? 'active-filter' : '' %>">
+      <div><i>🏖️</i></div>
+      <p>Beach</p>
+    </div>
+  </a>
 
-    <!-- next -->
-      <div class="filter">
-        <div> <i>🌊</i></div>
-        <p> Lakes </p>
-      </div>
+<a href="/listings?search=<%= search || '' %>&category=Forest" class="text-decoration-none">    <div class="filter <%= category === 'Forest' ? 'active-filter' : '' %>">
+      <div><i>🌲</i></div>
+      <p>Forest</p>
+    </div>
+  </a>
 
-      <div class="filter">
-        <div> <i>🌲</i></div>
-        <p> Forest </p>
-      </div>
-    
+<a href="/listings?search=<%= search || '' %>&category=Desert" class="text-decoration-none">    <div class="filter <%= category === 'Desert' ? 'active-filter' : '' %>">
+      <div><i>🏜️</i></div>
+      <p>Desert</p>
+    </div>
+  </a>
 
-    <!-- next -->
-      <div class="filter">
-        <div> <i>🏜️</i></div>
-        <p> Desert </p>
-      </div>
+<a href="/listings?search=<%= search || '' %>&category=Farm" class="text-decoration-none">    <div class="filter <%= category === 'Farm' ? 'active-filter' : '' %>">
+      <div><i>🚜</i></div>
+      <p>Farm</p>
+    </div>
+  </a>
 
-      <div class="filter">
-        <div> <i>🚜</i></div>
-        <p> Farm </p>
-      </div>
-    
+<a href="/listings?search=<%= search || '' %>&category=Iconic Cities" class="text-decoration-none">    <div class="filter <%= category === 'Iconic Cities' ? 'active-filter' : '' %>">
+      <div><i>🌆</i></div>
+      <p>Cities</p>
+    </div>
+  </a>
 
-    <!-- next -->
-      <div class="filter">
-        <div> <i>🏠</i></div>
-        <p> Cabins </p>
-      </div>
-      <div class="filter">
-        <div> <i>🏖️</i></div>
-        <p> Beach </p>
-      </div>
-    
-    
   <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
-  <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-  <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
-</div>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="switchCheckDefault"
+      >
+      <label class="form-check-label" for="switchCheckDefault">
+        Display total after taxes
+      </label>
+    </div>
   </div>
 
-
 </div>
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-  <% for(let listing of alllistings) { %>
+<% if(alllistings.length === 0){ %>
+
+<div class="text-center mt-5">
+    <h2>😕 No places found</h2>
+
+    <p>Try another destination or category.</p>
+
+    <a href="/listings" class="btn btn-dark">
+        Back to All Listings
+    </a>
+</div>
+
+<% } else { %>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">  <% for(let listing of alllistings) { %>
 
     <div class="col " >
-      <a href="/listings/<%= listing._id %>" class="listing-link ">
+      <a href="/listings/<%= listing._id %>" class="listing-link ">      
+
 
 
         <div class="card  listing-card" style="width: 25rem; margin: 20px;">
-          <form action="/wishlist/<%= listing._id %>" method="POST">
-        <button class="wishlist-btn">
-            🤍
-        </button>
-        </form>
+          <% if(currentUser && userWishlist.includes(listing._id.toString())) { %>
+
+<form action="/wishlist/<%= listing._id %>?_method=DELETE" method="POST">
+    <button
+        type="submit"
+        class="wishlist-btn"
+        onclick="event.stopPropagation()">
+        ❤️
+    </button>
+</form>
+
+<% } else { %>
+
+<form action="/wishlist/<%= listing._id %>" method="POST">
+    <button
+        type="submit"
+        class="wishlist-btn"
+        onclick="event.stopPropagation()">
+        🤍
+    </button>
+</form>
+
+<% } %>
           <img src="<%= listing.image.url %>" 
                class="card-img-top " 
                alt="listing_image"
@@ -122,9 +144,9 @@
 
       </a>
     </div>
-
   <% } %>
 </div>
+<% } %>
 
 
 <script>

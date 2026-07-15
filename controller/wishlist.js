@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Listing = require("../models/listing");
 
 module.exports.addToWishlist = async (req, res) => {
     const { id } = req.params;
@@ -25,4 +26,16 @@ module.exports.showWishlist = async (req, res) => {
     res.render("users/wishlist.ejs", {
         listings: user.wishlist,
     });
+};
+
+module.exports.removeFromWishlist = async (req, res) => {
+    const { id } = req.params;
+
+    await User.findByIdAndUpdate(req.user._id, {
+        $pull: { wishlist: id }
+    });
+
+    req.flash("success", "Removed from wishlist!");
+
+    res.redirect(`/listings/${id}`);
 };
