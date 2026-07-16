@@ -1,0 +1,164 @@
+<% layout("listings/layouts/boilerplate.ejs") -%>
+<div class="container mt-5">
+
+<div class="p-5 mb-5 bg-light rounded-4 shadow-sm">
+
+    <h1 class="display-5 fw-bold">
+        Welcome,
+        <%= currentUser.username %> 👋
+    </h1>
+
+    <p class="lead">
+        Manage your listings, bookings and wishlist from one dashboard.
+    </p>
+
+    <div class="mt-4">
+
+        <a href="/listings/new" class="btn btn-danger me-2">
+            ➕ Add Listing
+        </a>
+
+        <a href="/wishlist" class="btn btn-outline-danger me-2">
+            ❤️ Wishlist
+        </a>
+
+        <a href="/bookings" class="btn btn-outline-primary">
+            📖 My Bookings
+        </a>
+
+    </div>
+
+</div>
+    <% if(listings.length === 0){ %>
+            <div class="row mb-5">
+
+   <div class="row g-4 mb-5">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body py-4">
+                <h1 class="text-danger"><%= totalListings %></h1>
+                <h5>My Listings</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body py-4">
+                <h1 class="text-danger"><%= totalWishlist %></h1>
+                <h5>Wishlist</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card shadow border-0 text-center">
+            <div class="card-body py-4">
+                <h1 class="text-danger"><%= totalBookings %></h1>
+                <h5>Bookings</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+    <div class="card shadow border-0 text-center">
+        <div class="card-body py-4">
+            <h1 class="text-success">
+                ₹ <%= totalBookings * 2500 %>
+            </h1>
+            <h5>Estimated Revenue</h5>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+        <div class="text-center mt-5">
+            <h4>No Listings Yet</h4>
+            <p>Create your first listing.</p>
+
+            <a href="/listings/new" class="btn btn-dark">
+                Add Listing
+            </a>
+        </div>
+
+    <% } else { %>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h3>Recent Listings</h3>
+
+    <a href="/listings/new" class="btn btn-danger">
+        + New Listing
+    </a>
+
+</div>
+
+<div class="row ">
+
+    <% listings.forEach(listing => { %>
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100 dashboard-card">
+
+                <img
+                    src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    style="height:220px; object-fit:cover;"
+                >
+
+                <div class="card-body">
+
+                    <h5><%= listing.title %></h5>
+
+                    <p class="text-muted">
+                        <%= listing.location %>,
+                        <%= listing.country %>
+                    </p>
+
+                    <h6>₹ <%= listing.price %> / night</h6>
+
+                </div>
+
+                <div class="card-footer bg-white">
+
+                    <a
+                        href="/listings/<%= listing._id %>"
+                        class="btn btn-outline-primary btn-sm"
+                    >
+                        View
+                    </a>
+
+                    <a
+                        href="/listings/<%= listing._id %>/edit"
+                        class="btn btn-outline-warning btn-sm"
+                    >
+                        Edit
+                    </a>
+
+                    <form
+                        action="/listings/<%= listing._id %>?_method=DELETE"
+                        method="POST"
+                        class="d-inline"
+                    >
+
+                        <button class="btn btn-outline-danger btn-sm">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <% }) %>
+
+    </div>
+
+    <% } %>
+
+</div>

@@ -4,22 +4,10 @@ const router = express.Router();
 const { isLoggedIn } = require("../middleware");
 const Listing = require("../models/listing");
 const Booking = require("../models/booking");
+const profileController = require("../controller/profile");
 
-router.get("/", isLoggedIn, async (req, res) => {
-    const listings = await Listing.find({
-        owner: req.user._id,
-    });
+router.get("/", isLoggedIn, profileController.myDashboard);
 
-    const bookings = await Booking.find({
-        user: req.user._id,
-    }).populate("listing");
 
-    res.render("profile/index", {
-    listings,
-    bookings,
-    totalListings: listings.length,
-    totalBookings: bookings.length,
-});
-});
 
 module.exports = router;

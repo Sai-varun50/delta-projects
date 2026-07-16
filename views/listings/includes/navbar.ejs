@@ -74,8 +74,7 @@
         type="search"
         name="search"
         placeholder="🔍 Search destination..."
-        value="<%= search || '' %>"
-    >
+value="<%= typeof search !== 'undefined' ? search : '' %>"    >
 
     <button class="btn btn-search ms-2">
         <i class="fa-solid fa-magnifying-glass"></i>

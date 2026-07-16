@@ -1,90 +1,267 @@
 <% layout("/listings/layouts/boilerplate") %>
-<div class="container mt-4">
 
-    <h2>My Dashboard</h2>
-    <div class="row mb-4">
+<div class="container mt-5">
 
-    <div class="col-md-6 mb-3">
-        <div class="card bg-primary text-white shadow border-0">
-            <div class="card-body text-center">
-                <h5>Total Listings</h5>
-                <h1><%= totalListings %></h1>
-            </div>
-        </div>
-    </div>
+    <!-- Hero Section -->
+    <hr class="my-5">
 
-    <div class="col-md-6 mb-3">
-        <div class="card bg-success text-white shadow border-0">
-            <div class="card-body text-center">
-                <h5>Total Bookings</h5>
-                <h1><%= totalBookings %></h1>
-            </div>
-        </div>
-    </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h3>Recent Bookings</h3>
+
+    <a href="/bookings" class="btn btn-outline-primary">
+        View All
+    </a>
 
 </div>
-<div class="card shadow-sm border-0 mb-4">
-    <div class="card-body d-flex justify-content-between align-items-center flex-wrap">
 
-        <div>
-            <h3 class="mb-1">
-                Welcome,
-                <%= currentUser.username %> 👋
-            </h3>
+<% if(bookings.length === 0){ %>
 
-            <p class="text-muted mb-0">
-            <%= currentUser.email %>            </p>
-        </div>
-
-        <div class="mt-3 mt-md-0">
-
-            <a href="/listings/new" class="btn btn-success me-2">
-                <i class="fa-solid fa-plus"></i>
-                Add Listing
-            </a>
-
-            <a href="/wishlist" class="btn btn-outline-danger me-2">
-                ❤️ Wishlist
-            </a>
-
-            <a href="/listings" class="btn btn-dark">
-                Explore
-            </a>
-
-        </div>
-
-    </div>
-</div>
-    <hr>
-
-    <h3>My Listings</h3>
-
-   <div class="row card shadow border-0 rounded-4 h-100">
-
-<% if(listings.length === 0){ %>
-
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            You haven't created any listings yet.
-        </div>
+    <div class="alert alert-warning text-center">
+        You haven't made any bookings yet.
     </div>
 
 <% } else { %>
 
-    <% listings.forEach(listing => { %>
+<div class="row">
 
-        <div class="col-md-4 mb-3">
+    <% bookings.forEach(booking => { %>
 
-            <div class="card shadow border-0 rounded-4 h-100">
+    <div class="col-md-4 mb-4">
 
-                <img src="<%= listing.image.url %>" class="card-img-top">
+        <div class="card dashboard-card h-100">
+
+            <img
+                src="<%= booking.listing.image.url %>"
+                class="card-img-top"
+            >
+
+            <div class="card-body">
+
+                <h5><%= booking.listing.title %></h5>
+
+                <p class="text-muted">
+                    Guests: <%= booking.guests %>
+                </p>
+
+                <h6 class="text-success">
+                    ₹ <%= booking.totalPrice %>
+                </h6>
+
+            </div>
+
+            <div class="card-footer bg-white">
+
+                <a href="/bookings"
+                   class="btn btn-outline-primary btn-sm">
+                    View Booking
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <% }) %>
+
+</div>
+
+<% } %>
+
+    <!-- Statistics -->
+    <div class="row g-4 mb-5">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+<i class="fa-solid fa-house text-danger fs-2"></i>
+
+<h2 class="mt-2"><%= totalListings %></h2>                    <p>Listings</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                   <i class="fa-solid fa-heart text-danger fs-2"></i>
+
+<h2 class="mt-2"><%= totalWishlist %></h2> 
+                    <p>Wishlist</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                  <i class="fa-solid fa-calendar-check text-danger fs-2"></i>
+
+<h2 class="mt-2"><%= totalBookings %></h2>
+                    <p>Bookings</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow border-0 text-center">
+                <div class="card-body">
+                   <i class="fa-solid fa-indian-rupee-sign text-success fs-2"></i>
+
+<h2 class="mt-2"> ₹ <%= totalBookings * 2500 %></h2> 
+                    </h2>
+                    <p>Revenue</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="card border-0 shadow-sm mb-5">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between">
+
+            <h5>Profile Completion</h5>
+
+            <strong>80%</strong>
+
+        </div>
+
+        <div class="progress mt-3" style="height:10px;">
+
+            <div
+                class="progress-bar bg-success"
+                style="width:80%">
+            </div>
+
+        </div>
+
+        <small class="text-muted">
+            Complete your profile to improve trust with travelers.
+        </small>
+
+    </div>
+
+</div>
+    <!-- Listings -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3>My Listings</h3>
+        <hr class="my-5">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h3>Recent Bookings</h3>
+
+    <a href="/bookings" class="btn btn-outline-primary">
+        View All
+    </a>
+
+</div>
+
+<% if(bookings.length === 0){ %>
+
+    <div class="alert alert-warning text-center">
+        You haven't made any bookings yet.
+    </div>
+
+<% } else { %>
+
+<div class="row">
+
+    <% bookings.forEach(booking => { %>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card dashboard-card h-100">
+
+            <img
+                src="<%= booking.listing.image.url %>"
+                class="card-img-top"
+            >
+
+            <div class="card-body">
+
+                <h5><%= booking.listing.title %></h5>
+
+                <p class="text-muted">
+                    Guests: <%= booking.guests %>
+                </p>
+
+                <h6 class="text-success">
+                    ₹ <%= booking.totalPrice %>
+                </h6>
+
+            </div>
+
+            <div class="card-footer bg-white">
+
+                <a href="/bookings"
+                   class="btn btn-outline-primary btn-sm">
+                    View Booking
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <% }) %>
+
+</div>
+
+<% } %>
+        <a href="/listings/new" class="btn btn-danger">
+            + New Listing
+        </a>
+
+    </div>
+
+    <% if(listings.length === 0){ %>
+
+        <div class="alert alert-info text-center">
+            You haven't created any listings yet.
+        </div>
+
+    <% } else { %>
+
+    <div class="row">
+
+        <% listings.forEach(listing => { %>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card dashboard-card h-100">
+
+                <img src="<%= listing.image.url %>"
+                     class="card-img-top">
 
                 <div class="card-body">
 
                     <h5><%= listing.title %></h5>
 
-                    <a href="/listings/<%= listing._id %>" class="btn btn-dark">
+                    <p class="text-muted">
+                        <%= listing.location %>,
+                        <%= listing.country %>
+                    </p>
+
+                    <h6>₹ <%= listing.price %></h6>
+
+                </div>
+
+                <div class="card-footer bg-white">
+
+                    <a href="/listings/<%= listing._id %>"
+                       class="btn btn-outline-primary btn-sm">
                         View
+                    </a>
+
+                    <a href="/listings/<%= listing._id %>/edit"
+                       class="btn btn-outline-warning btn-sm">
+                        Edit
                     </a>
 
                 </div>
@@ -93,55 +270,10 @@
 
         </div>
 
-    <% }) %>
+        <% }) %>
 
-<% } %>
-
-</div>
-
-    <hr>
-
-    <h3>My Bookings</h3>
-
-   <div class="row card shadow border-0 rounded-4 h-100">
-
-<% if(bookings.length === 0){ %>
-
-    <div class="col-12">
-        <div class="alert alert-warning text-center">
-            No bookings found.
-        </div>
     </div>
 
-<% } else { %>
-
-    <% bookings.forEach(booking => { %>
-
-        <div class="col-md-4 mb-3">
-
-            <div class="card">
-
-                <img src="<%= booking.listing.image.url %>" class="card-img-top">
-
-                <div class="card-body">
-
-                    <h5><%= booking.listing.title %></h5>
-
-                    <p>Guests: <%= booking.guests %></p>
-
-                    <p>₹<%= booking.totalPrice %></p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    <% }) %>
-
-<% } %>
+    <% } %>
 
 </div>
-
-</div>
-
