@@ -13,19 +13,46 @@
             <div class="card-body">
                 <p class="card-text">
                     <i><% if (listing.owner) { %></i>
-                     <i>Hosted by <%= listing.owner.username %></i>
-                    <% } else { %>
+<div class="card border-0 shadow-sm rounded-4 p-3 mb-3">
+    <div class="d-flex align-items-center">
+
+        <div
+            class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center"
+            style="width:65px;height:65px;font-size:24px;font-weight:bold;">
+            <%= listing.owner.username.charAt(0).toUpperCase() %>
+        </div>
+
+        <div class="ms-3">
+            <h5 class="mb-1">
+                Hosted by <%= listing.owner.username %>
+            </h5>
+
+            <p class="text-muted mb-1">
+                Member since :
+Recently Joined            </p>
+
+            <p class="mb-0">
+                🏠 <%= hostListingCount %> Listing<%= hostListingCount !== 1 ? "s" : "" %>
+            </p>
+        </div>
+
+    </div>
+</div>                    <% } else { %>
                                 <i>Hosted by Unknown</i>
                         <% } %></p>
                   <p><%= listing.description %></p>
                    <p> ₹<%= listing.price.toLocaleString("en-IN") %> </p>
                     <p><%= listing.location %></p>
                    <p><%= listing.country %></p>
+                   
                 
             </div>
         </div>
     </div>
-
+<a href="mailto:<%= listing.owner.email %>"
+   class="btn btn-outline-dark rounded-pill mt-2">
+    Contact Host
+</a>
 
 
 
@@ -115,16 +142,49 @@
             
 
             <hr>
-            <h4>Reviews</h4>
-        <ul> 
-            <div class="row">
-            <% for (let review of listing.reviews) { %>
-                <div class="card mb-3 col-5 ms-3 mb-3">
-                    <div class="card-body">
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h3 class="mb-0">Reviews</h3>
 
-                        <h5 class="card-title">@<%= review.author.username %></h5>
-                        <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+    <div class="badge bg-warning text-dark fs-6 px-3 py-2">
+        ⭐ <%= averageRating %> | <%= totalReviews %> Review<%= totalReviews !== 1 ? "s" : "" %>
+    </div>
+</div>        <ul> 
+            <div class="row">
+
+<% if (listing.reviews.length === 0) { %>
+
+<div class="col-12">
+    <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+        <h4>⭐ No Reviews Yet</h4>
+        <p class="text-muted">
+            Be the first to review this amazing place!
+        </p>
+    </div>
+</div>
+
+<% } else { %>
+
+            <% for (let review of listing.reviews) { %>
+<div class="card shadow-sm border-0 rounded-4 col-md-5 ms-3 mb-4 review-card">                    <div class="card-body">
+
+<div class="d-flex align-items-center mb-2">
+    <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center"
+         style="width:45px;height:45px;font-weight:bold;">
+        <%= review.author.username.charAt(0).toUpperCase() %>
+    </div>
+
+    <div class="ms-3">
+        <h6 class="mb-0">@<%= review.author.username %></h6>
+    </div>
+</div>                        <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
                         <p class="card-text"><%= review.comment %></p>
+                        <p class="text-muted small mb-0">
+    Reviewed on <%= new Date(review.createdAt).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }) %>
+</p>
                         <!-- <p class="card-text"><%= review.rating %> stars </p> -->
                         
                     </div>

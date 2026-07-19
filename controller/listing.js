@@ -38,15 +38,37 @@ module.exports.showListing = async (req, res) => {
         .populate({path: "reviews", populate: { path: "author" }})
         .populate("owner")
         ;
+        listing.reviews.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+);
         // console.log(listing.owner);
+        const totalReviews = listing.reviews.length;
+
+const averageRating =
+    totalReviews > 0
+        ? (
+              listing.reviews.reduce(
+                  (sum, review) => sum + review.rating,
+                  0
+              ) / totalReviews
+          ).toFixed(1)
+        : 0;
 
     if (!listing) {
         req.flash("error", "Listing not found!");
         return res.redirect("/listings");
     }
+   
+const hostListingCount = await Listing.countDocuments({
+    owner: listing.owner._id
+});
 
-    res.render("listings/show.ejs", { listing });
-}
+res.render("listings/show", {
+    listing,
+    averageRating,
+    totalReviews,
+    hostListingCount,
+});}
 
 
 module.exports.createListing = async (req, res) => {
