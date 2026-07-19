@@ -99,7 +99,55 @@ Recently Joined            </p>
     <button class="btn btn-success">
         Book Now
     </button>
+<div class="card shadow border-0 rounded-4 mt-4">
+    <div class="card-body">
 
+        <h4 class="mb-3">
+            <i class="fa-solid fa-calendar-check text-success"></i>
+            Availability
+        </h4>
+
+        <% if (!listing.bookedDates || listing.bookedDates.length === 0) { %>
+
+            <div class="alert alert-success mb-0">
+                <i class="fa-solid fa-circle-check"></i>
+                This property is available for booking.
+            </div>
+
+        <% } else { %>
+
+            <div class="mb-3">
+                <span class="badge bg-danger fs-6">
+                    <%= listing.bookedDates.length %> Booking(s)
+                </span>
+            </div>
+
+            <% listing.bookedDates.forEach(date => { %>
+
+                <div class="card mb-2 border-danger">
+                    <div class="card-body py-2">
+
+                        <i class="fa-solid fa-calendar-days text-danger"></i>
+
+                        <strong>
+                            <%= new Date(date.start).toLocaleDateString() %>
+                        </strong>
+
+                        -
+
+                        <strong>
+                            <%= new Date(date.end).toLocaleDateString() %>
+                        </strong>
+
+                    </div>
+                </div>
+
+            <% }) %>
+
+        <% } %>
+
+    </div>
+</div>
 </form>
 
 <% } %>
@@ -193,6 +241,8 @@ Recently Joined            </p>
                     </form>
                 </div>
             <% } %>
+            <% } %>   <!-- closes else block -->
+
             </div>
         </ul>
             

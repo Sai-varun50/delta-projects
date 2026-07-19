@@ -1,0 +1,46 @@
+<% layout("listings/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <h2 class="mb-4">👤 Manage Users</h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Wishlist</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <% users.forEach(user => { %>
+
+            <tr>
+
+                <td><%= user.username %></td>
+
+                <td><%= user.email %></td>
+
+                <td><%= user.wishlist.length %></td>
+
+                <td>
+                    <% if(user.isAdmin){ %>
+                        <span class="badge bg-danger">Admin</span>
+                    <% } else { %>
+                        <span class="badge bg-secondary">User</span>
+                    <% } %>
+                </td>
+
+            </tr>
+
+        <% }) %>
+
+        </tbody>
+
+    </table>
+
+</div>

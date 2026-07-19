@@ -1,0 +1,97 @@
+<% layout("listings/layouts/boilerplate") %>
+
+<div class="container py-5">
+
+    <h2 class="mb-4 fw-bold">📊 Admin Dashboard</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 rounded-4 text-center p-4">
+                <h1>👤</h1>
+                <h3><%= totalUsers %></h3>
+                <p class="text-muted mb-0">Users</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 rounded-4 text-center p-4">
+                <h1>🏠</h1>
+                <h3><%= totalListings %></h3>
+                <p class="text-muted mb-0">Listings</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 rounded-4 text-center p-4">
+                <h1>⭐</h1>
+                <h3><%= totalReviews %></h3>
+                <p class="text-muted mb-0">Reviews</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 rounded-4 text-center p-4">
+                <h1>📅</h1>
+                <h3><%= totalBookings %></h3>
+                <p class="text-muted mb-0">Bookings</p>
+            </div>
+        </div>
+
+    </div>
+<div class="mt-5">
+    <a href="/admin/listings" class="btn btn-dark me-2">
+        Manage Listings
+    </a>
+
+    <a href="/admin/users" class="btn btn-primary">
+        Manage Users
+    </a>
+</div>
+
+<hr class="my-5">
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <h4>🆕 Latest Users</h4>
+
+        <ul class="list-group">
+
+            <% latestUsers.forEach(user => { %>
+
+                <li class="list-group-item">
+                    <%= user.username %>
+                </li>
+
+            <% }) %>
+
+        </ul>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <h4>🏠 Latest Listings</h4>
+
+        <ul class="list-group">
+
+            <% latestListings.forEach(listing => { %>
+
+                <li class="list-group-item">
+                    <%= listing.title %>
+                    <small class="text-muted">
+                        by <%= listing.owner ? listing.owner.username : "Unknown" %>
+                    </small>
+                </li>
+
+            <% }) %>
+
+        </ul>
+
+    </div>
+
+</div>
+</div>
+</div>

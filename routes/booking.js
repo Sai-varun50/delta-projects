@@ -1,19 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const Booking = require("../models/booking");
-const Listing = require("../models/listing");
+const booking = require("../models/booking");
 const { isLoggedIn } = require("../middleware");
-
+const bookingController = require("../controller/bookings.js");
 
 // My Bookings
-router.get("/", isLoggedIn, async (req, res) => {
-    const bookings = await Booking.find({ user: req.user._id })
-        .populate("listing");
 
-    res.render("bookings/index", { bookings });
-});
-
+router.get("/", isLoggedIn, bookingController.myBookings);
 // Create Booking
 router.post("/:id", isLoggedIn, async (req, res) => {
     try {
@@ -53,6 +47,22 @@ router.post("/:id", isLoggedIn, async (req, res) => {
         });
 
         await booking.save();
+        listing.bookedDates.push({
+    start: booking.checkIn,
+    end: booking.checkOut,
+});
+const overlap = listing.bookedDates.some((date) => {
+    return (
+        booking.checkIn <= date.end &&
+        booking.checkOut >= date.start
+    );
+});
+
+if (overlap) {
+    req.flash("error", "These dates are already booked.");
+    return res.redirect(`/listings/${listing._id}`);
+}
+await listing.save();
 
         req.flash("success", "Booking created successfully!");
         res.redirect("/bookings");
@@ -65,16 +75,37 @@ router.post("/:id", isLoggedIn, async (req, res) => {
 
 // Cancel Booking
 router.delete("/:id", isLoggedIn, async (req, res) => {
-    try {
-        await Booking.findByIdAndDelete(req.params.id);
+   const { id } = req.params;
 
-        req.flash("success", "Booking cancelled successfully!");
-        res.redirect("/bookings");
-    } catch (err) {
-        console.log(err);
-        req.flash("error", "Unable to cancel booking.");
-        res.redirect("/bookings");
+    const booking = await Booking.findById(id);
+
+    if (!booking) {
+        req.flash("error", "Booking not found.");
+        return res.redirect("/bookings");
     }
+
+    if (!booking.user.equals(req.user._id)) {
+        req.flash("error", "You are not authorized.");
+        return res.redirect("/bookings");
+    }
+
+const listing = await Listing.findById(booking.listing);
+
+if (listing) {
+    listing.bookedDates = listing.bookedDates.filter(date => {
+        return !(
+            new Date(date.start).getTime() === booking.checkIn.getTime() &&
+            new Date(date.end).getTime() === booking.checkOut.getTime()
+        );
+    });
+
+    await listing.save();
+}
+
+booking.status = "Cancelled";
+await booking.save();
+    req.flash("success", "Booking cancelled successfully.");
+    res.redirect("/bookings");
 });
 
 module.exports = router;

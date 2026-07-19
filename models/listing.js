@@ -41,7 +41,12 @@ const listingSchema = new Schema(
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    }
+    },bookedDates: [
+  {
+    start: Date,
+    end: Date,
+  },
+],
 
 },
 {

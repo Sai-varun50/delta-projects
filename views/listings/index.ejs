@@ -2,9 +2,6 @@
 <body>
     
 
-      <style>
-        
-      </style>
 
 
 <div id="filters">
@@ -79,6 +76,21 @@
   </div>
 
 </div>
+<section class="hero py-5 text-center" id="listings">
+    <div class="container">
+        <h1 class="display-3 fw-bold">
+            Welcome to StayNest
+        </h1>
+
+        <p class="lead text-muted mt-3">
+            Discover unique stays, unforgettable experiences, and your perfect getaway.
+        </p>
+
+        <a href="#listings" class="btn btn-dark btn-lg mt-4 px-4">
+            Explore Stays
+        </a>
+    </div>
+</section>
 <% if(alllistings.length === 0){ %>
 
 <div class="text-center mt-5">
@@ -124,6 +136,9 @@
 </form>
 
 <% } %>
+
+          
+
           <img src="<%= listing.image.url %>" 
                class="card-img-top " 
                alt="listing_image"

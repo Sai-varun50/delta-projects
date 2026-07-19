@@ -15,6 +15,10 @@ const userSchema = new Schema({
         ref: "Listing",
     },
 ],
+        isAdmin: {
+        type: Boolean,
+         default: false,
+},
 });
 
 userSchema.plugin(passportLocalMongoose);

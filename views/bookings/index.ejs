@@ -1,6 +1,45 @@
 <% layout("listings/layouts/boilerplate.ejs") %>
 
 <h2 class="mt-4">My Bookings</h2>
+<div class="row my-4">
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm border-0">
+            <div class="card-body">
+                <h6>Total Bookings</h6>
+                <h2><%= totalBookings %></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm border-0">
+            <div class="card-body">
+                <h6>Upcoming</h6>
+                <h2 class="text-success"><%= upcoming %></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm border-0">
+            <div class="card-body">
+                <h6>Completed</h6>
+                <h2 class="text-primary"><%= completed %></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <div class="card text-center shadow-sm border-0">
+            <div class="card-body">
+                <h6>Cancelled</h6>
+                <h2 class="text-danger"><%= cancelled %></h2>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <% if (bookings.length === 0) { %>
 
@@ -25,12 +64,29 @@
         <p>Guests: <%= booking.guests %></p>
 
         <p><strong>₹<%= booking.totalPrice.toLocaleString("en-IN") %></strong></p>
+        <p>
+    <strong>Status:</strong>
 
-        <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
-            <button class="btn btn-danger">
-                Cancel Booking
-            </button>
-        </form>
+    <% if (booking.status === "Confirmed") { %>
+        <span class="badge bg-success">Confirmed</span>
+
+    <% } else if (booking.status === "Cancelled") { %>
+        <span class="badge bg-danger">Cancelled</span>
+
+    <% } else if (booking.status === "Completed") { %>
+        <span class="badge bg-primary">Completed</span>
+
+    <% } else { %>
+        <span class="badge bg-warning text-dark">Pending</span>
+    <% } %>
+</p>
+        <% if (booking.status !== "Cancelled") { %>
+    <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST">
+        <button class="btn btn-danger">
+            Cancel Booking
+        </button>
+    </form>
+<% } %>
 
     </div>
 

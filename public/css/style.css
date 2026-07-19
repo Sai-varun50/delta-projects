@@ -1,3 +1,9 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
+
 body {
    font-family: "Plus Jakarta Sans", sans-serif;
    display: flex;
@@ -19,7 +25,7 @@ body {
 .navbar {
     height: 5rem;
     background-color: white;
-    box-shadow: 0 1px 8px rgba(0,0,0,.08);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 .fa-compass {
     color: #fe424d;
@@ -242,12 +248,17 @@ a{
     text-decoration: none;
 }
 .card {
+    border: none !important;
+    border-radius: 18px;
+    overflow: hidden;
     transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
+
 
 .card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 15px 35px rgba(0,0,0,.15);
+    box-shadow: 0 15px 35px rgba(0,0,0,.18);
 }
 .review-card {
     transition: all 0.3s ease;
@@ -257,4 +268,59 @@ a{
 .review-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+.hero {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 20px;
+    margin: 30px auto;
+}
+
+.hero h1 {
+    font-weight: 700;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+}
+.listing-img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}.card:hover .listing-img {
+    transform: scale(1.05);
+}
+.btn-dark {
+    border-radius: 30px;
+    padding: 10px 22px;
+    transition: all 0.3s ease;
+}
+
+.btn-dark:hover {
+    transform: translateY(-2px);
+}
+
+.form-control,
+.form-select {
+    border-radius: 12px;
+}
+.hero .btn {
+    padding: 12px 28px;
+    font-size: 1.1rem;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero,
+.card {
+    animation: fadeIn 0.5s ease;
 }

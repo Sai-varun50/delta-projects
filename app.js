@@ -19,7 +19,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const Booking = require("./models/booking");
-
+const adminRoutes = require("./routes/admin");
 
 
 
@@ -119,6 +119,7 @@ app.use("/users", userRoutes);
 app.use("/wishlist", wishlistRouter);
 app.use("/bookings", bookingRoutes);
 app.use("/profile", profileRouter);
+app.use("/admin", adminRoutes);
 
 
 app.use((req, res, next) => {
@@ -139,3 +140,4 @@ app.listen(8080, () => {
     console.log("server is listenting to port 8080");
 
 });
+
