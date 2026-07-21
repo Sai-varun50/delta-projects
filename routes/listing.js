@@ -17,11 +17,22 @@ router.route("/")
 .post(isLoggedIn, validateListing,upload.single("listing[image]"), wrapasync(listingController.createListing))
 
 router.get("/new", isLoggedIn, listingController.renderNewForm);
+console.log("Listing routes loaded");
 
 router.route("/:id")
-.get(wrapasync(listingController.showListing))
-.put(isLoggedIn, isowner, validateListing,upload.single("listing[image]"), wrapasync(listingController.updateListing))
-.delete(isLoggedIn, isowner, wrapasync(listingController.destroyListing));
+  .get(wrapasync(listingController.showListing))
+  .put(
+    isLoggedIn,
+    isowner,
+    upload.single("listing[image]"),
+    validateListing,
+    wrapasync(listingController.updateListing)
+  )
+  .delete(
+    isLoggedIn,
+    isowner,
+    wrapasync(listingController.destroyListing)
+  );
 
 
 router.get("/:id/edit", isLoggedIn, isowner, wrapasync(listingController.renderEditForm));

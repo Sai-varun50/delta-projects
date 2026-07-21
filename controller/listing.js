@@ -1,3 +1,5 @@
+
+
 const Listing = require("../models/listing");
 
 module.exports.index = async (req, res) => {
@@ -106,6 +108,7 @@ module.exports.renderEditForm = async (req, res, next) => {
     }
 
 }
+
 
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
